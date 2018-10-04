@@ -16,9 +16,9 @@ define(['jquery', 'js/jquery.dataTables.min.js', 'js/jquery-ui.min.js'] , functi
                 dataSrc:""
             },
             columns: [
-                { data: "id" },
-                { data: "title" },
-                { data: "description" }
+                { data: "id_conversa" },
+                { data: "titulo" },
+                { data: "cpf" }
             ],
         //select: true
         });

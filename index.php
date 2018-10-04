@@ -1,7 +1,7 @@
 <?php
 require_once("../../config.php");
 require_once("./searchform.php");
-include('httpful.phar');
+//include('httpful.phar');
 
 // Check if user is logged and not guest
 require_login();
@@ -9,25 +9,16 @@ if (isguestuser()) {
     die();
 }
 
-global $DB;
-
 // Prepare page
 $context = context_system::instance(); 
 $PAGE->set_pagelayout('standard');
 $PAGE->set_url('/blocks/fale_conosco/index.php');
+$PAGE->requires->css(new moodle_url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'));
 $PAGE->requires->css(new moodle_url('https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'));
 $PAGE->requires->css(new moodle_url('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css'));
-$PAGE->requires->css(new moodle_url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'));
 
-
-//$PAGE->requires->js('/blocks/fale_conosco/datatable.js', true);
-/*
-$PAGE->requires->js(new moodle_url('https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'),true);
-$PAGE->requires->js(new moodle_url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'),true);
-*/
 
 $PAGE->set_context($context);
-
 
 // Get data
 $strtitle = get_string('fale_conosco', 'block_fale_conosco');
@@ -62,7 +53,6 @@ echo $OUTPUT->header();
 // Print concluded courses
 echo $OUTPUT->box_start('generalbox boxaligncenter');
 echo $OUTPUT->heading(get_string('fale_conosco', 'block_fale_conosco'));
-
 
 //Instantiate simplehtml_form 
 $mform = new searchform();
@@ -159,7 +149,7 @@ if ($mform->is_cancelled()) {
 </script>
 
 <?php
-$PAGE->requires->js_call_amd('block_fale_conosco/config', 'init');
+ $PAGE->requires->js_call_amd('block_fale_conosco/config', 'init');
 //$PAGE->requires->js_call_amd('block_fale_conosco/config', 'getTableContacts');
 ?>
 

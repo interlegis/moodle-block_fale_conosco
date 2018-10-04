@@ -28,12 +28,12 @@ if(isset($_GET["contactID"])) {
     ->send();
 }
 else {
-    $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco';
+    $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/conversa';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body(
         '{
-            "school_initial": "SSL",
+            "school_initials": "SSL",
             "page" : "1",
             "limit": "10"
         }'
