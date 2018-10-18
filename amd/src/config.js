@@ -75,32 +75,42 @@ define(['jquery', 'js/jquery.dataTables.min.js', 'js/jquery-ui.min.js'] , functi
         for (var i = 0, len = data.length; i < len; i++) {
           var desc = data[i].body;
           arrayReturn.push([ data[i].id, data[i].name, data[i].email]);
+          var data_mensagem = data[i].data_mensagem.substring(8, 10) + '/' + data[i].data_mensagem.substring(5, 7) + '/' + data[i].data_mensagem.substring(0, 4);
+          var hora_mensagem = data[i].data_mensagem.substring(11, 16)
+          mensagens += '<div class="row">'
           if (data[i].aluno != false) {
+            mensagens += '<div class="col-sm-10">'
             mensagens += '<div class="panel panel-success"> ';
           }
           else {
+            mensagens += '<div class="col-sm-10 pull-right">'
             mensagens += '<div class="panel panel-primary"> ';
           }
           mensagens +=
           '  <div class="panel-heading">'+
           '      <h3 class="panel-title">' + data[i].cpf + '</h3>'+
           '  </div>'+
-          '  <div class="panel-body">'+
+          '  <div class="panel-body" style="word-break: break-all;">'+
           data[i].texto_mensagem +
-          '  </div><div class="text-right">'+
-          Date(data[i].data_mensagem) +
-          '</div></div>';
+          '  </div><div class="text-right" style="font-style: italic; margin-right:10px;">'+
+          // '<hr>' + //Com ou sem?
+          data_mensagem + '  ' +
+          hora_mensagem +
+          '</div></div></div></div><hr>';
         };
         mensagens +=
+          '<div class="row">' +
           '<div class="form-group">'+
           '<label for="comment">Mensagem:</label>'+
           '<textarea class="form-control" rows="5" id="comment"></textarea>'+
           '</div>' +
-          '<button type="button" id="sendMessage" class="btn">Enviar</button>';
+          '<button type="button" id="sendMessage" class="btn">Enviar</button>' +
+          '</div>';
 
         $('#mensagens').html(mensagens);
         $('#sendMessage').click(function (){
-          description = $('#comment').val();
+          description = ($('#comment').val());
+          description = description.replace(/(?:\r\n|\r|\n)/g, '<br>');
           $('#comment').attr('value', "")
           $.ajax({
             url: "proxy.php?addMessage=" + data_conversation.id_conversa + "&description=" + description,

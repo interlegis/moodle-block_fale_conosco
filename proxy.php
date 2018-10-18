@@ -6,6 +6,7 @@ header("Content-Type: application/json");
 if(isset($_GET["conversationID"])) {
     $id = intval($_GET['conversationID']);
     $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/mensagens';
+    // $uri = 'http://localhost:3000/api/v1/fale_conosco/mensagens';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body('{"conversation_id": "' . $id . '"}')
@@ -15,14 +16,8 @@ if(isset($_GET["conversationID"])) {
     $cpf = $USER->username;
     $description = $_GET['description'];
 
-    // ***Pega o contexto do curso e verifica o papel do usuário
-    // $cContext = context_course::instance(3);
-    // $isStudent = current(get_user_roles($cContext, $USER->id))->shortname =='student'? 'true' : 'false';
-
-    // ***Verifica se o usuário assume o papel de estudante em algum curso
-    // $isStudent = user_has_role_assignment($USER->id, 5);
-
     $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/adicionar';
+    // $uri = 'http://localhost:3000/api/v1/fale_conosco/adicionar';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body('{
@@ -38,6 +33,7 @@ if(isset($_GET["conversationID"])) {
   $not_answered = intval($_GET['answered'])== 0 ? 'false':'true';
   $not_answered = trim($not_answered, '"');
   $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/conversa';
+  // $uri = 'http://localhost:3000/api/v1/fale_conosco/conversa';
   $response = \Httpful\Request::post($uri)
   ->sendsJson()
   ->body(
