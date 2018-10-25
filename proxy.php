@@ -30,8 +30,8 @@ if(isset($_GET["conversationID"])) {
     }')
     ->send();
 } elseif(isset($_REQUEST["schoolInitials"])) {
-  $not_answered = intval($_GET['answered'])== 0 ? 'false':'true';
-  $not_answered = trim($not_answered, '"');
+  $was_answered = intval($_GET['answered'])== 0 ? 'false':'true';
+  $was_answered = trim($was_answered, '"');
   $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/conversa';
   // $uri = 'http://localhost:3000/api/v1/fale_conosco/conversa';
   $response = \Httpful\Request::post($uri)
@@ -41,7 +41,7 @@ if(isset($_GET["conversationID"])) {
       "school_initials": "SSL",
       "page" : "1",
       "limit": "2000",
-      "not_answered": '. $not_answered .'
+      "was_answered": '. $was_answered .'
   }')
     ->send();
 }
