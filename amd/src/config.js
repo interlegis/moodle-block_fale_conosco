@@ -2,20 +2,19 @@ define(['jquery', 'js/jquery.dataTables.min.js', 'js/jquery-ui.min.js'] , functi
 
   var exports = {};
   var answered = 1;
-  var school = 'SSL';
   var init = exports.init = function() {
     // Altera entre mensagens respondidas e não respondidas
     $( "#id_situacao" ).change(function() {
       answered = $(this).val();
       $("#id_situacao").val(answered);
-      tabelaContatos.ajax.url('proxy.php?schoolInitials=' + school +' + &answered=' + answered)
+      tabelaContatos.ajax.url('proxy.php?answered=' + answered)
       tabelaContatos.ajax.reload();
     });
 
     // Obtém dados de todas as conversas
     var tabelaContatos = $('#tabela_contatos').DataTable({
       ajax: {
-        url: "proxy.php?schoolInitials=" + school + "&answered=" + 0,
+        url: "proxy.php?answered=" + 0,
         dataSrc:""
       },
       columns: [

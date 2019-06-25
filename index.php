@@ -17,8 +17,6 @@ $PAGE->requires->css(new moodle_url('https://maxcdn.bootstrapcdn.com/bootstrap/3
 $PAGE->requires->css(new moodle_url('https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'));
 $PAGE->requires->css(new moodle_url('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css'));
 
-
-
 $PAGE->set_context($context);
 
 // Get data
@@ -27,7 +25,6 @@ $user = $USER;
 //$icon = $OUTPUT->pix_icon('print', get_string('print', 'block_fale_conosco'), 'block_fale_conosco');
 
 global $DB, $CFG, $USER;
-
 
 echo $OUTPUT->header();
 

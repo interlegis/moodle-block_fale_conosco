@@ -10,9 +10,7 @@ class block_fale_conosco extends block_base {
           return $this->content;
         }
 
-        $this->content         =  new stdClass;
-        $this->content->text   = 'The content of our SimpleHTML block!';
-        $this->content->footer = 'Footer here...';
+        $this->content = new stdClass;
 
         return $this->content;
     }

@@ -1,12 +1,12 @@
 <?php
-include('httpful.phar');
+include_once($CFG->dirroot . "/blocks/escola_modelo/lib/httpful.phar");
 require_once("../../config.php");
+require_once($CFG->dirroot . "/blocks/escola_modelo/classes/util.php");
 header("Content-Type: application/json");
 
 if(isset($_GET["conversationID"])) {
     $id = intval($_GET['conversationID']);
-    $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/mensagens';
-    // $uri = 'http://localhost:3000/api/v1/fale_conosco/mensagens';
+    $uri = evlURLWebServices() + '/api/v1/fale_conosco/mensagens';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body('{"conversation_id": "' . $id . '"}')
@@ -16,8 +16,7 @@ if(isset($_GET["conversationID"])) {
     $cpf = $USER->username;
     $description = $_GET['description'];
 
-    $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/adicionar';
-    // $uri = 'http://localhost:3000/api/v1/fale_conosco/adicionar';
+    $uri = evlURLWebServices() + '/api/v1/fale_conosco/adicionar';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body('{
@@ -29,21 +28,20 @@ if(isset($_GET["conversationID"])) {
         "conversation_id": "' . $id . '"
     }')
     ->send();
-} elseif(isset($_REQUEST["schoolInitials"])) {
+} else {
   $was_answered = intval($_GET['answered'])== 0 ? 'false':'true';
   $was_answered = trim($was_answered, '"');
-  $uri = 'https://escolamodelows.interlegis.leg.br/api/v1/fale_conosco/conversa';
-  // $uri = 'http://localhost:3000/api/v1/fale_conosco/conversa';
+  $uri = evlURLWebServices() . '/api/v1/fale_conosco/conversa';
   $response = \Httpful\Request::post($uri)
   ->sendsJson()
   ->body(
     '{
-      "school_initials": "SSL",
+      "school_initials": "' . evlSiglaEscola() . '",
       "page" : "1",
       "limit": "2000",
       "was_answered": '. $was_answered .'
   }')
-    ->send();
+  ->send();
 }
 
 $data=$response->body;
