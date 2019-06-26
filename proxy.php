@@ -1,6 +1,6 @@
 <?php
-include_once($CFG->dirroot . "/blocks/escola_modelo/lib/httpful.phar");
 require_once("../../config.php");
+include_once($CFG->dirroot . "/blocks/escola_modelo/lib/httpful.phar");
 require_once($CFG->dirroot . "/blocks/escola_modelo/classes/util.php");
 header("Content-Type: application/json");
 
