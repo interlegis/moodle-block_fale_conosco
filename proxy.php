@@ -6,7 +6,7 @@ header("Content-Type: application/json");
 
 if(isset($_GET["conversationID"])) {
     $id = intval($_GET['conversationID']);
-    $uri = evlURLWebServices() + '/api/v1/fale_conosco/mensagens';
+    $uri = evlURLWebServices() . '/api/v1/fale_conosco/mensagens';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body('{"conversation_id": "' . $id . '"}')
@@ -16,7 +16,7 @@ if(isset($_GET["conversationID"])) {
     $cpf = $USER->username;
     $description = $_GET['description'];
 
-    $uri = evlURLWebServices() + '/api/v1/fale_conosco/adicionar';
+    $uri = evlURLWebServices() . '/api/v1/fale_conosco/adicionar';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body('{
