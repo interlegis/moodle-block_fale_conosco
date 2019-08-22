@@ -1,12 +1,16 @@
 <?php
 require_once("../../config.php");
 require_once("./searchform.php");
-//include('httpful.phar');
+require_once($CFG->dirroot.'/blocks/escola_modelo/classes/util.php');
 
 // Check if user is logged and not guest
 require_login();
 if (isguestuser()) {
     die();
+}
+
+if(!evlHabilitada()) {
+  die('Esta funcionalidade requer que a integração com a EVL esteja habilitada!');
 }
 
 // Prepare page

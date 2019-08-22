@@ -15,7 +15,7 @@ define(['jquery', 'js/jquery.dataTables.min.js', 'js/jquery-ui.min.js'] , functi
     // Obtém dados de todas as conversas
     var tabelaContatos = $('#tabela_contatos').DataTable({
       ajax: {
-        url: "proxy.php?schoolInitials=" + school + "&answered=" + 0,
+        url: "proxy.php?answered=" + 0,
         dataSrc:""
       },
       columns: [
