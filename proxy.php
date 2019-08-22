@@ -1,17 +1,27 @@
 <?php
 require_once("../../config.php");
-include_once($CFG->dirroot . "/blocks/escola_modelo/lib/httpful.phar");
-require_once($CFG->dirroot . "/blocks/escola_modelo/classes/util.php");
+require_once($CFG->dirroot.'/blocks/escola_modelo/classes/util.php');
+include_once($CFG->dirroot . '/blocks/escola_modelo/lib/httpful.phar');
+
+if(!evlHabilitada()) {
+    die('Esta funcionalidade requer que a integração com a EVL esteja habilitada!');
+}
+
 header("Content-Type: application/json");
 
-if(isset($_GET["conversationID"])) {
+ // FIXME incluir APIKEY em todas as chamadas
+ 
+ // Obtém todas as mensagens de uma conversa
+ if(isset($_GET["conversationID"])) {
     $id = intval($_GET['conversationID']);
     $uri = evlURLWebServices() . '/api/v1/fale_conosco/mensagens';
     $response = \Httpful\Request::post($uri)
     ->sendsJson()
     ->body('{"conversation_id": "' . $id . '"}')
     ->send();
-} elseif(isset($_REQUEST["addMessage"])) {
+}
+ // Adiciona uma nova mensagem a uma conversa
+ elseif(isset($_REQUEST["addMessage"])) {
     $id = intval($_GET['addMessage']);
     $cpf = $USER->username;
     $description = $_GET['description'];
@@ -28,7 +38,10 @@ if(isset($_GET["conversationID"])) {
         "conversation_id": "' . $id . '"
     }')
     ->send();
-} else {
+}
+ // Pega todas as conversas de determinada escola, em determinada situação 
+ // FIXME parametrizar limite e tratar paginação
+ else {
   $was_answered = intval($_GET['answered'])== 0 ? 'false':'true';
   $was_answered = trim($was_answered, '"');
   $uri = evlURLWebServices() . '/api/v1/fale_conosco/conversa';
@@ -38,10 +51,10 @@ if(isset($_GET["conversationID"])) {
     '{
       "school_initials": "' . evlSiglaEscola() . '",
       "page" : "1",
-      "limit": "2000",
+      "limit": "2000", 
       "was_answered": '. $was_answered .'
   }')
-  ->send();
+    ->send();
 }
 
 $data=$response->body;
